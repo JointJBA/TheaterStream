@@ -10,7 +10,7 @@ require 'functions/theater.php';
 
 if(logged_in()){
 	$session_user_id = $_SESSION['user_id'];
-	$user_data = user_data($session_user_id, 'user_id', 'theater_name', 'password', 'start_time', 'video_path', 'video_link', 'theater_title', 'time', 'status');
+	$user_data = user_data($session_user_id, 'user_id', 'theater_name', 'password', 'start_time', 'video_path', 'video_link', 'video_type', 'theater_title', 'time', 'status');
 }
 
 

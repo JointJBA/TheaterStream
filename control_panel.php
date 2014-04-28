@@ -2,17 +2,22 @@
 include 'core/init.php';
 include 'includes/overall/header.php';
 
-if ($_GET['success']=='true') {
-  echo "<script> alert('Successfully updated!'); </script>";
-}
+
 if (logged_in() && empty($_POST) === false) {
 	if (empty($_POST['link']) === false) {
 		$link=$_POST['link'];
 		$theater_name = $user_data['theater_name'];
 		mysql_query("UPDATE `users` SET `video_link`='$link' WHERE `theater_name`= '$theater_name'" );
+    mysql_query("UPDATE `users` SET `video_type`='1' WHERE `theater_name`= '$theater_name'" );
 		mysql_query("UPDATE `users` SET `video_path`='' WHERE `theater_name`= '$theater_name'" );
 
+    $success=true;
+
 	}}
+
+  if ($_GET['success']=='true' || $success) {
+  echo "<script> alert('Successfully updated!'); </script>";
+}
 if (logged_in()){
 
   

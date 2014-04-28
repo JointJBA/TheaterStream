@@ -7,47 +7,40 @@ $result = mysql_query("SELECT `video_link` FROM `users` WHERE `theater_name`='$t
 $video_link = mysql_fetch_row($result); 
 $video_link = $video_link[0]; // mysql_fetch_row returns an array. we only want the Name so we just set it excluseively. 
 
+
+
 ?>
 <script type="text/javascript" src="//cdn.sublimevideo.net/js/2mn1v45v.js"></script>
-<?php
-if (mysql_query("SELECT `video_path` FROM `users` WHERE `theater_name`='$theater_name'")=='' ){
-?>
-<script type="text/javascript" src="//cdn.sublimevideo.net/js/2mn1v45v.js"></script>
-
-    <div class="row">
-  <div class="large-5 large-centered columns text-center">
-
-    <div class="theater-video"><h1><?php echo $theater_name; ?>'s Theater</h1><br><br><video data-autoresize='fit' id="a240e92d" data-youtube-id="<?php echo $video_link; ?>" class="sublime" width="640" height="360" title="Midnight Sun" data-uid="a240e92d" preload="none">
-    </video></div>
-
-
-  </div>
-
-</div>
-<?php }
-else{
-    $file_name = scandir("users/".$theater_name . "/" );
-    $video_path = "users/".$theater_name . "/" .$file_name['2'];
-?>
-
-
-    <div class="row">
-  <div class="large-5 large-centered columns text-center">
-
-    <div class="theater-video"><h1><?php echo $theater_name; ?>'s Theater</h1><br><br>
+<body>
+<?php 
+    $video_type = (int)$user_data['video_type'];
+    $video_path = $user_data['video_path'];
+    switch ($video_type) {
+    case 0:
+        ?>
+            <div class="row">
+              <div class="large-5 large-centered columns text-center">
+                <div class="theater-video"><h1><?php echo $theater_name; ?>'s Theater</h1><br><br>
         <video data-autoresize='fit' id="a240e92d" class="sublime" width="640" height="360" title="Midnight Sun" data-uid="a240e92d" preload="none">
-  <source src=<?php echo $video_path;?>
+  <source src=<?php echo $video_path;?>>
     </video>
-    </div>
-
-
-  </div>
-
-</div>
-<?php
+              </div>
+            </div>    
+        <?php
+        break;
+        case 1:
+        ?>
+        <div class="row">
+          <div class="large-5 large-centered columns text-center">
+            <div class="theater-video"><h1><?php echo $theater_name; ?>'s Theater</h1><br><br><video data-autoresize='fit' id="a240e92d" data-youtube-id="<?php echo $video_link; ?>" class="sublime" width="640" height="360" title="Midnight Sun" data-uid="a240e92d" preload="none">
+    </video></div>
+          </div>
+      </div>    
+      <?php
+        break;
 }
 ?>
-
+</body>
 <script>
 sublime.load();
 sublime.ready(function(){   var player = sublime.player('a240e92d');

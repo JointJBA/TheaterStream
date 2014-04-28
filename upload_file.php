@@ -46,7 +46,9 @@ if ((($_FILES["file"]["type"] == "video/mp4")
     $theater_name=$user_data['theater_name'];
     $query = "users/".$user_data['theater_name'] . "/" . $_FILES["file"]["name"];
     mysql_query("UPDATE `users` SET `video_path`='$query' WHERE `theater_name`= '$theater_name'" );
-    header('Location: control_panel.php?success=true');
+        mysql_query("UPDATE `users` SET `video_link`='' WHERE `theater_name`= '$theater_name'" );
+    mysql_query("UPDATE `users` SET `video_type`='0' WHERE `theater_name`= '$theater_name'" );
+    //header('Location: control_panel.php?success=true');
   }
 else
   {
